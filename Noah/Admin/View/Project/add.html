@@ -1,0 +1,115 @@
+<script type="text/javascript" src="__PUBLIC__/plugins/datepicker2/js/bootstrap-datepicker.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/plugins/datepicker2/css/datepicker.css">
+<script>
+$(document).ready(function(){
+	$('#project_sn').focusout(function(){
+		var sn = $(this).val();
+		$.ajax({
+			url		: "{:U('Project/ajaxCheckProjSn')}",
+			data	: {sn:sn},
+			method	: "POST",
+			dataType: "json",
+			success:function(count){
+				if (count == 0) {
+					$('#project_sn').parents('.form-group:first').attr({class:"form-group has-success"});
+				} else {
+					$('#project_sn').parents('.form-group:first').attr({class:"form-group has-error"});
+				}
+			}
+		});
+	});
+});
+</script>
+<!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            {$postion.0.name}
+            <small>ZhongJi</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 管理中心</a></li>
+		    <volist name="postion" id="val">
+		    <li <if condition="$val.id eq $menuid">class="active"</if>><a href="{:U($val['url'])}">{$val.name}</a></li>
+		    </volist>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <!-- SELECT2 EXAMPLE -->
+          <div class="box box-default">
+            <div class="box-header with-border">
+              <h3 class="box-title">添加项目</h3>
+              <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+              </div>
+            </div><!-- /.box-header -->
+            <form method="POST">
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>项目名称</label>
+                    <input class="form-control input-sm" type="text" name="name" id="name" placeholder="项目名称">
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>项目编号</label>
+                    <input class="form-control input-sm" type="text" name="project_sn" id="project_sn" placeholder="项目编号">
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>项目审批人</label>
+                    <select class="form-control">
+                    <option valaue="">请选择</option>
+                    <foreach name="leaders" item="val">
+                    <option value="{$val.id}">{$val.username}</option>
+                    </foreach>
+                    </select>
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+              <div class="row">
+              <div class="col-md-3">
+                  <div class="form-group">
+                    <label>公示日期</label>
+                    <input class="form-control input-sm" type="text" name="publicity_date" id="publicity_date" placeholder="公示日期">
+                    <script>$('#publicity_date').datepicker({format:"yyyy-mm-dd"});</script>
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+              <div class="col-md-3">
+                  <div class="form-group">
+                    <label>报名截止日期</label>
+                    <input class="form-control input-sm" type="text" name="closing_date" id="closing_date" placeholder="报名截止日期">
+                    <script>$('#closing_date').datepicker({format:"yyyy-mm-dd"});</script>
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>抽专家日期</label>
+                    <input class="form-control input-sm" type="text" name="extract_date" id="extract_date" placeholder="抽专家日期">
+                    <script>$('#extract_date').datepicker({format:"yyyy-mm-dd"});</script>
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>开标日期</label>
+                    <input class="form-control input-sm" type="text" name="opening_date" id="opening_date" placeholder="开标日期">
+                    <script>$('#opening_date').datepicker({format:"yyyy-mm-dd"});</script>
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+              <div class="box-footer">
+                <button class="btn btn-primary" type="submit">保存</button>
+              </div>
+            </div><!-- /.box-body -->
+          </form>
+          </div><!-- /.box -->
+            </form>
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->

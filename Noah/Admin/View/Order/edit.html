@@ -1,0 +1,173 @@
+<script type="text/javascript" src="__PUBLIC__/plugins/datepicker2/js/bootstrap-datepicker.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/plugins/datepicker2/css/datepicker.css">
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Simple Tables
+            <small>preview of simple tables</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 管理中心</a></li>
+            <li><a href="#">系统管理</a></li>
+            <li class="active">会员管理</li>
+          </ol>
+        </section>
+
+        <form method="POST">
+          <input type="hidden" name="oid" value="{$_GET.oid}">
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">订单编辑</h3>
+                  <div class="box-tools">
+                    <div class="input-group" style="width: 150px;">
+                      <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="搜索">
+                      <div class="input-group-btn">
+                        <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                  <table class="table table-hover">
+                    <tr>
+                      <td>会员名称:</td>
+                      <td>{$meminfo.membername}</td>
+                      <td>卡号:</td>
+                      <td>{$meminfo.card_num}</td>
+                      <td>套餐:</td>
+                      <td>{$meminfo.set_meal}</td>
+                    </tr>
+                    <tr>
+                      <td>配送斤数:</td>
+                      <td>{$meminfo.peisongweight}</td>
+                      <td>联系电话:</td>
+                      <td>{$meminfo.phone}</td>
+                      <td>送货时间:</td>
+                      <td>{$meminfo.peisongtime}</td>
+                    </tr>
+                    <tr>
+                      <td>总次数:</td>
+                      <td>{$meminfo.deliverytimes}</td>
+                      <td>已送次数:</td>
+                      <td>{$meminfo['deliverytimes']-$oinfo['synums']}</td>
+                      <td>剩余次数:</td>
+                      <td>{$oinfo['synums']}</td>
+                    </tr>
+                    <tr>
+                      <td>储值金额:</td>
+                      <td>{$meminfo.depositmoney}</td>
+                      <td>已用金额:</td>
+                      <td>{$meminfo['depositmoney']-$oinfo['ymoney']}.00</td>
+                      <td>剩余金额:</td>
+                      <td>{$oinfo['ymoney']}</td>
+                    </tr>
+                    <tr>
+                      <td>下单时间:</td>
+                      <td><input type="text" class="form-control input-sm" id="add_time" name="oinfo[add_time]" value="{:date('Y-m-d',$oinfo['add_time'])}"></td>
+                      <script>$('#add_time').datepicker({format:"yyyy-mm-dd"});</script>
+                      <td>车辆:</td>
+                      <td>
+                        <select class="form-control  input-sm" name="oinfo[vehicle]">
+                          <option value="">请选择</option>
+                          <volist name="veh" id="v" key="k">
+                              <option value="{$k}" <if condition="$oinfo.vehicle eq $k">selected</if>>{$v}</option>
+                          </volist>
+                        </select>
+                      </td>
+                      <td>包装方式:</td>
+                      <td>
+                        <select class="form-control  input-sm" name="oinfo[packaging]">
+                          <option value="">请选择</option>
+                          <volist name="packaging" id="v" key="k">
+                              <option value="{$k}" <if condition="$oinfo.packaging eq $k">selected</if>>{$v}</option>
+                          </volist>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>接收人:</td>
+                      <td><input type="text" class="form-control input-sm" name="oinfo[shouhuoname]" value="{$meminfo.shouhuoname}"></td>
+                      <td>订菜电话:</td>
+                      <td><input type="text" class="form-control input-sm" name="oinfo[phone]" value="{$oinfo.phone}"></td>
+                      <td><input type="text" class="form-control input-sm" name="oinfo[phonetwo]" value="{$oinfo.phonetwo}"></td>
+                      <td><input type="text" class="form-control input-sm" value="13800138000"></td>
+                    </tr>
+                    <tr>
+                      <td>送货地址:</td>
+                      <td colspan="5"><input type="text" class="form-control input-sm" name="oinfo[address]" value="{$oinfo.address}"></td>
+                    </tr>
+                    <tr>
+                      <td>配送注意事项:</td>
+                      <td colspan="5"><textarea class="form-control" name="oinfo[peisongnotes]">{$oinfo.peisongnotes}</textarea></td>
+                    </tr>
+                    <tr>
+                      <td>备注:</td>
+                      <td colspan="5"><textarea class="form-control" name="oinfo[remark]">{$oinfo.remark}</textarea></td>
+                    </tr>
+<!--                     <tr>
+                      <td>订单内容:</td>
+                      <td colspan="5"></td>
+                    </tr> -->
+                    <tr>
+                      <td>本次订单:</td>
+                      <td colspan="5">
+                        <foreach name="currentorder" item="vo">
+                          {$vo.name}{$vo.sku_name}*{$vo.count}&nbsp&nbsp
+                        </foreach>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>订单消费金额:</td>
+                      <td colspan="2">{$oinfo.totalfee}</td>
+                      <td>订单消费次数:</td>
+                      <td colspan="2">{$oinfo.peisong}</td>
+                    </tr>
+                  </table>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <!-- Custom Tabs -->
+              <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                  <foreach name="caitype" item="v">
+                  <li <if condition="$key eq 0">class="active"</if>><a data-toggle="tab" href="#{$v.id}" aria-expanded="<if condition="$key eq 0">true</else>false</if>">{$v.name}</a></li>
+                  </foreach>
+                  <li class="pull-right"><a class="text-muted" href="#"><i class="fa fa-gear"></i></a></li>
+                </ul>
+                <div class="tab-content">
+                  <volist name="caitype" id="v" key="k">
+                  <div id="{$v.id}" class="tab-pane <if condition="$key eq 0">active</if>">
+                    <div class="box-body table-responsive no-padding">
+                      <table class="table">
+                        <tr>
+                          <script type="text/javascript">
+                          <?php print_r($ordata)?></script>
+                          <?php $count = count($caisinfo[$v['id']]);$count--;?>
+                          <?php foreach($caisinfo[$v['id']] as $key=>$val){?>
+                          <td><?php echo $val['name'];echo $val['sku_name'];?>(<?php echo $val['stock']?>)</td>
+                          <td style="width:70px;border-right: 1px solid #f4f4f4"><input type="text" class="form-control input-sm" name="cai[<?php echo $val['sku_id'];?>]" value="<?php if($ordata[$val['sku_id']]){echo $ordata[$val['sku_id']];}?>"></td>
+                          <?php
+                          if ($key%4==0 && $key>0){echo '</tr>';}elseif($count == $key){echo '</tr>';}
+                        } ?>
+                      </table>
+                    </div>
+                  </div><!-- /.tab-pane -->
+                  </volist>
+                </div><!-- /.tab-content -->
+              </div><!-- nav-tabs-custom -->
+            </div><!-- /.col -->
+            <div class="col-md-10"></div>
+            <div class="col-md-2"><button class="btn btn-block btn-primary" type="submit">保存</button></div>
+          </div>
+        </section><!-- /.content -->
+        </form>
+      </div><!-- /.content-wrapper --> 

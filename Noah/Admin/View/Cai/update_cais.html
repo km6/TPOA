@@ -1,0 +1,150 @@
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Simple Tables
+            <small>preview of simple tables</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 管理中心</a></li>
+            <li><a href="#">系统管理</a></li>
+            <li class="active">修改菜品分类</li>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <!-- left column -->
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+              <!-- general form elements -->
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">修改菜品</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" action="" method="post" enctype="multipart/form-data">
+                  <div class="box-body">
+                     <div class="form-group">
+                      <label for="name">菜品名称</label>
+                      <input type="text" class="form-control" name="name" id="name" placeholder="输入名称" value="{$menuinfo.name}">
+                    </div>
+                    <div class="form-group">
+                      <label for="name">图片</label>
+                      <input type="file" id="exampleInputFile" name="imgurl">
+                      <img src="{$menuinfo.imgurl}">
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label>菜单类别</label>
+                          <select class="form-control" id="ctid" name="ctid">
+                          <foreach name="caitype" item="val">
+                          <option value="{$val.id}"<?php if($val['id']==$menuinfo['ctid']){echo 'selected';}?>>{$val.name}</option>
+                          </foreach>
+                          </select>
+                        </div>
+                        <div class="col-md-4">
+                          <label>单位</label>
+                          <input type="text" class="form-control" name="unit" id="unit" placeholder="请输入备注" value="{$menuinfo.unit}"> 
+                        </div>
+                        <div class="col-md-4">
+                          <label for="url">排序</label>
+                          <input type="text" class="form-control" name="frontsort" id="frontsort" placeholder="sort" value="{$menuinfo.frontsort}">
+                        </div>
+                      </div>
+                      
+                    </div>
+                    <div class="form-group">
+                      <foreach name="caisku" item="vo">
+                      <input type="hidden" name="sku[sku_id][]" value="{$vo.sku_id}">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <label>规格</label>
+                          <input type="text" class="form-control" name="sku[sku_name][]" id="sku[sku_name]" placeholder="规格" value="{$vo.sku_name}">
+                        </div>
+                        <div class="col-md-2">
+                          <label>价格</label>
+                          <input type="text" class="form-control" name="sku[price][]" id="sku[price]" placeholder="价格" value="{$vo.price}">
+                        </div>
+                        <div class="col-md-2">
+                          <label>重量</label>
+                          <input type="text" class="form-control" name="sku[weight][]" id="sku[weight]" placeholder="重量" value="{$vo.weight}">
+                        </div>
+                        <div class="col-md-2">
+                          <label>数量</label>
+                          <input type="text" class="form-control" name="sku[stock][]" id="sku[stock]" placeholder="数量" value="{$vo.stock}">
+                        </div>
+                        <div class="col-md-2">
+                          <label>&nbsp</label><br>
+                          <a class="add-sku" href="javascript:;">添加</a>|<a class="del-sku" href="javascript:;" skuid="{$vo.sku_id}">删除</a>
+                        </div>
+                      </div>
+                      </foreach>
+                      <script type="text/javascript">
+                        $(document).delegate('.add-sku','click',function(){
+                          var row = $(this).parents('.row:first').html();
+                          row = '<div class="row">'+row+'</div>';
+                          row = row.replace(/value=".*?"/g, "");
+                          row = row.replace(/skuid=".*?"/g, "");
+                          $(this).parents('.row:first').after(row);
+                        });
+
+                        $(document).delegate('.del-sku','click',function(){
+                          var sku_id = $(this).attr('skuid');
+                          if (typeof(sku_id) == "undefined") {
+                            $(this).parents('.row:first').empty();
+                          } else {
+                            $.ajax({
+                              type:'POST',
+                              dataType:'json',
+                              url:'index.php?m=Admin&c=Cai&a=delSku',
+                              data:'sku_id='+sku_id,
+                              success:function(data){
+
+                              }
+                            });
+                            $(this).parents('.row:first').empty();
+                          }
+                          //console.debug(sku_id);
+                        });
+                      </script>
+                    </div>
+                    <div class="form-group">
+                      <label for="url">简介</label>
+                      <textarea id="editor1" name="details" rows="10" cols="80">{$menuinfo.details}</textarea>
+                    </div>
+                    <div class="form-group">
+                       <label>备注</label>
+                       <textarea name="remark" id="remark" class="form-control"  placeholder="请输入备注">{$menuinfo.remark}</textarea>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-sm-12">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" name="is_rec" value="1" <if condition="$menuinfo.is_rec eq 1">checked</if>>首页推荐
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div><!-- /.box-body -->
+                  <input type="hidden" name="id" value="{$menuinfo.id}">
+                  <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                  </div>
+                </form>
+              </div><!-- /.box -->
+            </div>
+            <div class="col-md-2">
+            </div>
+          </div>
+        </section>
+        </div><!-- /.content-wrapper --> 
+        <script>
+          $(function () {
+            CKEDITOR.replace('editor1');
+          });
+        </script>

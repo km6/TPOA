@@ -1,0 +1,113 @@
+<script type="text/javascript" src="__PUBLIC__/plugins/datepicker2/js/bootstrap-datepicker.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/plugins/datepicker2/css/datepicker.css">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    {$postion.0.name}
+    <small>ZhongJi</small>
+  </h1>
+  <ol class="breadcrumb">
+  	<li><a href="#"><i class="fa fa-dashboard"></i> 管理中心</a></li>
+    <volist name="postion" id="val">
+    <li <if condition="$val.id eq $menuid">class="active"</if>><a href="{:U($val['url'])}">{$val.name}</a></li>
+    </volist>
+  </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+<div class="row"> 
+  <div class="col-xs-12">
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">{$projinfo.name}完结结算</h3>
+        <div class="box-tools">
+          <div class="input-group" style="width: 150px;">
+           <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="搜索">
+           <div class="input-group-btn">
+             <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+           </div>
+         </div>
+       </div>
+     </div><!-- /.box-header -->
+     <div class="box-body table-responsive no-padding">
+       <table class="table table-hover">
+         <tr>
+           <td>项目编号：{$projinfo.project_sn}</td>
+           <td>项目名称：{$projinfo.name}</td>
+           <td>负责人：{$projinfo.username}</td>
+           <td></td>
+         </tr>
+         <tr>
+	         <th>标段名称</th>
+	         <th>中标单位</th>
+	         <th>中标金额</th>
+	         <th>服务费</th>
+         </tr>
+         <foreach name="lotinfo" item="val">
+         <tr>
+	         <td>{$val.name}</td>
+	         <td>{$val.s_bidder}</td>
+	         <td>{$val.bid_amount}</td>
+	         <td>{$val.service_fee}</td>
+         </tr>
+         </foreach>
+         <form method="post">
+         <tr>
+         <th>总经理审核</th>
+         <th></th>
+         <th>财务审核</th>
+         <th></th>
+         </tr>
+         <tr>
+	         <td>
+		         <select class="form-control" name="leader_check" <php>if($groups[0]['group_id'] !=4){echo 'disabled';}</php>>
+			         <option value="0">请选择</option>
+			         <option value="1" <php>if($projinfo['leader_check'] == 1){echo 'selected';}</php>>通过</option>
+			         <option value="2" <php>if($projinfo['leader_check'] == 2){echo 'selected';}</php>>未通过</option>
+		         </select>
+	         </td>
+	         <td></td>
+	         <td>
+		         <select class="form-control" name="treasurer_check" <php>if($groups[0]['group_id'] !=3){echo 'disabled';}</php>>
+			         <option value="0">请选择</option>
+			         <option value="1" <php>if($projinfo['treasurer_check'] == 1){echo 'selected';}</php>>通过</option>
+			         <option value="2" <php>if($projinfo['treasurer_check'] == 2){echo 'selected';}</php>>未通过</option>
+		         </select>
+	         </td>
+	         <td><p style="color:red">（退还保证金后审批）</p></td>
+         </tr>
+         <tr>
+         <td colspan="2">
+         	<label>总经理审核意见</label>
+         <input type="text" class="form-control" name="leader_opinion" <php>if($groups[0]['group_id'] !=4){echo 'disabled';}</php>>
+         </td>
+         <td colspan="2">
+         	<label>财务审核意见</label>
+         <input type="text" class="form-control" name="treasurer_opinion" <php>if($groups[0]['group_id'] !=3){echo 'disabled';}</php>>
+         </td>
+         </tr>
+         <tr>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td><button class="btn btn-block btn-primary" type="submit">保存</button></td>
+         </tr>
+         <input type="hidden" name="id" value="{$_GET.id}">
+         </form>
+       </table>
+     </div><!-- /.box-body -->
+      <div class="box-footer clearfix">
+       <ul class="pagination pagination-sm no-margin pull-right">
+         {$page}
+       </ul>
+     </div>
+   </div><!-- /.box -->
+    </div>
+  </div>
+</section><!-- /.content -->
+</div><!-- /.content-wrapper --> 

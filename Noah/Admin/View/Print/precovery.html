@@ -1,0 +1,60 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<style type="text/css" media="print">
+table{border: 1px solid;}
+th{border: 1px solid;}
+td{border: 1px solid;}
+.noprint{display : none }
+</style>
+日期：{$_GET.date}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+配送车：{$_GET.vehicle}
+<hr>
+<table cellspacing="0">
+<tr>
+  <th colspan="{$count+1}">不收费菜品</th>
+</tr>
+<tr>
+	<td>序号</td>
+<?php for ($i=1;$i<=$count;$i++) {?>
+  	<td><?php echo $i;?></td>
+<?php } ?>
+</tr>
+<tr>
+	<td>菜品</td>
+<?php foreach ($recdata[0] as $key=>$val) {?>
+  	<td><?php echo $val['name'];?></td>
+<?php } ?>
+</tr>
+<tr>
+	<td>数量</td>
+<?php foreach ($recdata[0] as $key=>$val) {?>
+  	<td><?php echo $val['count'];?></td>
+<?php } ?>
+</tr>
+<tr>
+  <th colspan="{$count+1}">收费菜品</th>
+</tr>
+<tr>
+	<td>序号</td>
+<?php for ($i=1;$i<=$count1;$i++) {?>
+  	<td><?php echo $i;?></td>
+<?php } ?>
+	<td colspan="{$count-$count1}"></td>
+</tr>
+<tr>
+	<td>菜品</td>
+<?php foreach ($recdata[1] as $key=>$val) {?>
+  	<td><?php echo $val['name'];?></td>
+<?php } ?>
+	<td colspan="{$count-$count1}"></td>
+</tr>
+<tr>
+	<td>数量</td>
+<?php foreach ($recdata[1] as $key=>$val) {?>
+  	<td><?php echo $val['count'];?></td>
+<?php } ?>
+	<td colspan="{$count-$count1}"></td>
+</tr>
+</table>
+<button class="noprint" onclick="{location.href='{:U('Print/recovery',array('date'=>$_GET['date'],'vehicle'=>$_GET['vehicle']))}'}">返回</button>
+<button class="noprint" onclick="javascript:window.print();">打印</button>

@@ -1,0 +1,148 @@
+<script>
+$(document).delegate('.add_lot','click',function(){
+    var row = $(this).parents('.row:first').html();
+    row = '<div class="row">'+row+'</div>';
+    row = row.replace(/value=".*?"/g, "");
+    $(this).parents('.row:first').after(row);
+  });
+
+  $(document).delegate('.del_lot','click',function(){
+    $(this).parents('.row:first').empty();
+  });
+</script>
+<!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Advanced Form Elements
+            <small>Preview</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 管理中心</a></li>
+		    <volist name="postion" id="val">
+		    <li <if condition="$val.id eq $menuid">class="active"</if>><a href="{:U($val['url'])}">{$val.name}</a></li>
+		    </volist>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <!-- SELECT2 EXAMPLE -->
+          <div class="box box-default">
+            <div class="box-header with-border">
+              <h3 class="box-title">添加标段</h3>
+              <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+              </div>
+            </div><!-- /.box-header -->
+            <form method="POST">
+            <input type="hidden" name="proj_id" value="{$_GET.proj_id}">
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>项目名称</label>
+                    <input class="form-control input-sm" type="text" value="{$proj_info.name}" disabled>
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>项目编号</label>
+                    <input class="form-control input-sm" type="text" value="{$proj_info.project_sn}" disabled>
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+              <if condition="count($lotlist) eq 0">
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label>标段名称</label>
+                    <input class="form-control input-sm" type="text" name="lot[name][]" id="name" placeholder="标段名称">
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>中标单位</label>
+                    <input class="form-control input-sm" type="text" name="lot[s_bidder][]" id="s_bidder" placeholder="中标单位">
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label>中标金额</label>
+                    <input class="form-control input-sm" type="text" name="lot[bid_amount][]" id="bid_amount" placeholder="中标金额">
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+                <div class="col-md-1">
+                  <div class="form-group">
+                    <label>标书费</label>
+                    <input class="form-control input-sm" type="text" name="lot[tender_fee][]" id="tender_fee" placeholder="标书费">
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+                <div class="col-md-1">
+                  <div class="form-group">
+                    <label>服务费</label>
+                    <input class="form-control input-sm" type="text" name="lot[service_fee][]" id="service_fee" placeholder="服务费">
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+                <div class="col-md-2">
+                <br>
+	                <div class="btn-group">
+		                <button class="btn btn-primary add_lot" type="button">添加</button>
+		                <button class="btn btn-info del_lot" type="button">删除</button>
+	                </div>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+              <else />
+              <foreach name="lotlist" item="val">
+              <input type="hidden" name="lot[id][]" value="{$val.id}">
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label>标段名称</label>
+                    <input class="form-control input-sm" type="text" name="lot[name][]" id="name" value="{$val.name}" placeholder="标段名称">
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>中标单位</label>
+                    <input class="form-control input-sm" type="text" name="lot[s_bidder][]" id="s_bidder" value="{$val.s_bidder}" placeholder="中标单位">
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label>中标金额</label>
+                    <input class="form-control input-sm" type="text" name="lot[bid_amount][]" id="bid_amount" value="{$val.bid_amount}" placeholder="中标金额">
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+                <div class="col-md-1">
+                  <div class="form-group">
+                    <label>标书费</label>
+                    <input class="form-control input-sm" type="text" name="lot[tender_fee][]" id="tender_fee" value="{$val.tender_fee}" placeholder="标书费">
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+                <div class="col-md-1">
+                  <div class="form-group">
+                    <label>服务费</label>
+                    <input class="form-control input-sm" type="text" name="lot[service_fee][]" id="service_fee" value="{$val.service_fee}" placeholder="服务费">
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+                <div class="col-md-2">
+                <br>
+	                <div class="btn-group">
+		                <button class="btn btn-primary add_lot" type="button">添加</button>
+		                <button class="btn btn-info del_lot" type="button">删除</button>
+	                </div>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+              </foreach>
+              </if>
+              <div class="box-footer">
+                <button class="btn btn-primary" type="submit">保存</button>
+              </div>
+            </div><!-- /.box-body -->
+          </form>
+          </div><!-- /.box -->
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->

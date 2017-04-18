@@ -1,0 +1,115 @@
+<script type="text/javascript" src="__PUBLIC__/plugins/datepicker2/js/bootstrap-datepicker.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/plugins/datepicker2/css/datepicker.css">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+     {$postion.0.name}
+     <small>ZhongJi</small>
+   </h1>
+  <ol class="breadcrumb">
+  	<li><a href="#"><i class="fa fa-dashboard"></i> 管理中心</a></li>
+    <volist name="postion" id="val">
+    <li <if condition="$val.id eq $menuid">class="active"</if>><a href="{:U($val['url'])}">{$val.name}</a></li>
+    </volist>
+  </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+<div class="row">
+<form action="">
+<input type="hidden" name="m" value="{:MODULE_NAME}">
+<input type="hidden" name="c" value="{:CONTROLLER_NAME}">
+<input type="hidden" name="a" value="{:ACTION_NAME}">
+  <div class="col-md-3">
+    <div class="form-group">
+      <label>开始日期</label>
+      <input class="form-control input-sm" type="text" name="start_date" id="start_date" value="{$_GET.start_date}" placeholder="开始日期">
+      <script>$('#start_date').datepicker({format:"yyyy-mm-dd"});</script>
+    </div><!-- /.form-group -->
+  </div><!-- /.col -->
+  <div class="col-md-3">
+    <div class="form-group">
+      <label>结束日期</label>
+      <input class="form-control input-sm" type="text" name="end_date" id="end_date" value="{$_GET.end_date}" placeholder="结束日期">
+      <script>$('#end_date').datepicker({format:"yyyy-mm-dd"});</script>
+    </div><!-- /.form-group -->
+  </div><!-- /.col -->
+  <div class="col-md-1">
+    <div class="form-group">
+    <label>&nbsp</label><br>
+      <button class="btn btn-block btn-primary btn-sm" type="submit">搜索</button>
+    </div><!-- /.form-group -->
+  </div><!-- /.col -->
+  </form>
+  <div class="col-md-1">
+    <div class="form-group">
+    <label>&nbsp</label><br>
+      <button class="btn btn-block btn-primary btn-sm" type="button" onclick="{location.href='{:U('Data/projectGather',array('put'=>1))}'}">导出</button>
+    </div><!-- /.form-group -->
+  </div><!-- /.col -->
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">项目汇总数据</h3>
+        <div class="box-tools">
+          <div class="input-group" style="width: 150px;">
+           <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="搜索">
+           <div class="input-group-btn">
+             <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+           </div>
+         </div>
+       </div>
+     </div><!-- /.box-header -->
+     <div class="box-body table-responsive no-padding">
+       <table class="table table-hover">
+         <tr>
+	         <th>序号</th>
+	         <th>项目编号</th>
+	         <th>项目名称</th>
+	         <th>项目负责人</th>
+	         <th>开标日期</th>
+	         <th>标段号</th>
+	         <th>标书费</th>
+	         <th>中标金额</th>
+	         <th>服务费</th>
+	         <th>中标单位名称</th>
+	         <th>评标费</th>
+	         <th>场地费</th>
+	         <th>出差费</th>
+	         <th>项目完结情况</th>
+         </tr>
+         <volist name="info" id="val">
+         <tr>
+         	<td>{$val.id}</td>
+         	<td>{$val.project_sn}</td>
+         	<td>{$val.name}</td>
+         	<td>{$val.username}</td>
+         	<td>{$val.opening_date}</td>
+         	<td>{$val.lotname}</td>
+         	<td>{$val.tender_fee}</td>
+         	<td>{$val.bid_amount}</td>
+         	<td>{$val.service_fee}</td>
+         	<td>{$val.s_bidder}</td>
+         	<td>{$val.evaluation_fee}</td>
+         	<td>{$val.venue_fee}</td>
+         	<td>{$val.travel_fee}</td>
+         	<td>{$val.status}</td>
+         </tr>
+         </volist>
+       </table>
+     </div><!-- /.box-body -->
+      <div class="box-footer clearfix">
+       <ul class="pagination pagination-sm no-margin pull-right">
+         {$page}
+       </ul>
+     </div>
+   </div><!-- /.box -->
+    </div>
+  </div>
+</section><!-- /.content -->
+</div><!-- /.content-wrapper --> 

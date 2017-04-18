@@ -1,0 +1,57 @@
+<script type="text/javascript" src="__PUBLIC__/plugins/datepicker2/js/bootstrap-datepicker.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/plugins/datepicker2/css/datepicker.css">
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Simple Tables
+            <small>preview of simple tables</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 管理中心</a></li>
+            <li><a href="#">系统管理</a></li>
+            <li class="active">会员管理</li>
+          </ol>
+        </section>
+
+        <form method="POST">
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-md-12">
+              <!-- Custom Tabs -->
+              <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                  <foreach name="caitype" item="v">
+                  <li <if condition="$key eq 0">class="active"</if>><a data-toggle="tab" href="#{$v.id}" aria-expanded="<if condition="$key eq 0">true</else>false</if>">{$v.name}</a></li>
+                  </foreach>
+                  <li class="pull-right"><a class="text-muted" href="#"><i class="fa fa-gear"></i></a></li>
+                </ul>
+                <div class="tab-content">
+                  <volist name="caitype" id="v" key="k">
+                  <div id="{$v.id}" class="tab-pane <if condition="$key eq 0">active</if>">
+                    <div class="box-body table-responsive no-padding">
+                      <table class="table">
+                        <tr>
+                          <?php $count = count($caisinfo[$v['id']]);$count--;?>
+                          <?php foreach($caisinfo[$v['id']] as $key=>$val){?>
+                          <td><?php echo $val['name'];echo $val['sku_name'];?></td>
+                          <td style="width:70px;border-right: 1px solid #f4f4f4"><input type="text" class="form-control input-sm" name="cai[<?php echo $val['sku_id'];?>]" value="<?php echo $val['stock']?>"></td>
+                          <?php
+                          if ($key%4==0 && $key>0){echo '</tr>';}elseif($count == $key){echo '</tr>';}
+                        } ?>
+                      </table>
+                    </div>
+                  </div><!-- /.tab-pane -->
+                  </volist>
+                </div><!-- /.tab-content -->
+              </div><!-- nav-tabs-custom -->
+            </div><!-- /.col -->
+            <div class="col-md-10"></div>
+            <div class="col-md-2"><button class="btn btn-block btn-primary" type="submit">保存</button></div>
+          </div>
+        </section><!-- /.content -->
+        </form>
+      </div><!-- /.content-wrapper --> 
+      

@@ -1,0 +1,89 @@
+<script type="text/javascript" src="__PUBLIC__/plugins/datepicker2/js/bootstrap-datepicker.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/plugins/datepicker2/css/datepicker.css">
+<!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            {$postion.0.name}
+            <small>ZhongJi</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 管理中心</a></li>
+		    <volist name="postion" id="val">
+		    <li <if condition="$val.id eq $menuid">class="active"</if>><a href="{:U($val['url'])}">{$val.name}</a></li>
+		    </volist>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <!-- SELECT2 EXAMPLE -->
+          <div class="box box-default">
+            <div class="box-header with-border">
+              <h3 class="box-title">费用报销</h3>
+              <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+              </div>
+            </div><!-- /.box-header -->
+            <form method="POST">
+            <input type="hidden" name="proj_id" value="{$_GET.proj_id}">
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>项目名称</label>
+                    <input class="form-control input-sm" type="text" name="fee" id="fee" value="{$projInfo.name}" disabled>
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>评标费</label>
+                    <input class="form-control input-sm" type="text" name="evaluation_fee" id="evaluation_fee">
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>场地费</label>
+                    <input class="form-control input-sm" type="text" name="venue_fee" id="venue_fee" >
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>出差费</label>
+                    <input class="form-control input-sm" type="text" name="travel_fee" id="travel_fee">
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+              <div class="row">
+                <div class="col-md-9">
+                  <div class="form-group">
+                    <label>出差人员</label>
+                    <input class="form-control input-sm" type="text" name="travel_member" id="travel_member">
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+              <div class="row">
+                <div class="col-md-9">
+                  <div class="form-group">
+                    <label>备注</label>
+                    <textarea placeholder="请输入" rows="3" class="form-control" name="remark"></textarea>
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+                <div class="col-md-3">
+                </div><!-- /.col -->
+                <div class="col-md-3">
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+              <div class="box-footer">
+                <button class="btn btn-primary" type="submit">保存</button>
+              </div>
+            </div><!-- /.box-body -->
+          </form>
+          </div><!-- /.box -->
+            </form>
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->

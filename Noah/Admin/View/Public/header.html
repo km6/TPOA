@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>XXXX | OA系统</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="__PUBLIC__/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="__PUBLIC__/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="__PUBLIC__/dist/css/skins/_all-skins.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="__PUBLIC__/plugins/iCheck/flat/blue.css">
+    <!-- Morris chart -->
+    <link rel="stylesheet" href="__PUBLIC__/plugins/morris/morris.css">
+    <!-- jvectormap -->
+    <link rel="stylesheet" href="__PUBLIC__/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+    <!-- Date Picker -->
+    <!-- <link rel="stylesheet" href="__PUBLIC__/plugins/datepicker/datepicker3.css"> -->
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="__PUBLIC__/plugins/daterangepicker/daterangepicker-bs3.css">
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="__PUBLIC__/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+    <link rel="stylesheet" href="__PUBLIC__/plugins/datatables/dataTables.bootstrap.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery 2.1.4 -->
+    <script src="__PUBLIC__/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="__PUBLIC__/plugins/jQueryUI/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+      $.widget.bridge('uibutton', $.ui.button);
+    </script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="__PUBLIC__/bootstrap/js/bootstrap.min.js"></script>
+  </head>
+  <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+
+      <header class="main-header">
+        <!-- Logo -->
+        <a href="" class="logo">
+          <!-- mini logo for sidebar mini 50x50 pixels -->
+          <span class="logo-mini"><b>Z</b>OA</span>
+          <!-- logo for regular state and mobile devices -->
+          <span class="logo-lg"><b>OA系统</b></span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+          <!-- Sidebar toggle button-->
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+          </a>
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+              <!-- Messages: style can be found in dropdown.less-->
+              <li class="dropdown messages-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-envelope-o"></i>
+                  <if condition="$msgcount gt 0 ">
+                  <span class="label label-success">{$msgcount}</span>
+                  </if>
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="header">您有{$msgcount}条未读信息</li>
+                  <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu">
+                    <foreach name="msglist" item="val">
+                      <li><!-- start message -->
+                        <a href="{:U('Message/detail',array('id'=>$val['id']))}">
+                          <div class="pull-left"></div>
+                          <h4>
+                            {$val.title}
+                          </h4>
+                        </a>
+                      </li><!-- end message -->
+                     </foreach>
+                    </ul>
+                  </li>
+                  <li class="footer"><a href="{:U('Message/inbox')}">查看所有信息</a></li>
+                </ul>
+              </li>
+              <!-- Notifications: style can be found in dropdown.less -->
+              <li class="dropdown notifications-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bell-o"></i>
+                  <span class="label label-warning">{$ocount+$ecount+$ccount+$reicount+$comcount}</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="header">您有{$ocount+$ecount+$ccount+$reicount+$comcount}个通知</li>
+                  <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu">
+                    <php>if($ocount){</php>
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-warning text-yellow"></i>{$ocount}{$otip}
+                        </a>
+                      </li>
+                     <php>}</php>
+                     <php>if($ecount){</php>
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-warning text-yellow"></i>{$ecount}{$etip}
+                        </a>
+                      </li>
+                      <php>}</php>
+                      <php>if($ccount){</php>
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-warning text-yellow"></i>{$ccount}{$ctip}
+                        </a>
+                      </li>
+                      <php>}</php>
+                      <php>if($reicount){</php>
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-warning text-yellow"></i>{$reicount}{$reitip}
+                        </a>
+                      </li>
+                      <php>}</php>
+                      <php>if($comcount){</php>
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-warning text-yellow"></i>{$comcount}{$comtip}
+                        </a>
+                      </li>
+                      <php>}</php>
+                    </ul>
+                  </li>
+                  <li class="footer"><a href="{:U('Remind/index')}">查看全部</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>

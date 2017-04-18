@@ -1,0 +1,102 @@
+<script type="text/javascript" src="__PUBLIC__/plugins/datepicker2/js/bootstrap-datepicker.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/plugins/datepicker2/css/datepicker.css">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    {$postion.0.name}
+    <small>ZhongJi</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> 管理中心</a></li>
+    <volist name="postion" id="val">
+    <li <if condition="$val.id eq $menuid">class="active"</if>><a href="{:U($val['url'])}">{$val.name}</a></li>
+    </volist>
+  </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+<div class="row"> 
+  <div class="col-xs-12">
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+    <form action="">
+    <input type="hidden" name="m" value="{:MODULE_NAME}">
+    <input type="hidden" name="c" value="{:CONTROLLER_NAME}">
+    <input type="hidden" name="a" value="{:ACTION_NAME}">
+      <div class="box-header">
+        <h3 class="box-title">项目列表</h3>
+        <div class="box-tools">
+          <div class="input-group" style="width: 150px;">
+           <input type="text" name="name" class="form-control input-sm pull-right" value="{$name}" placeholder="搜索">
+           <div class="input-group-btn">
+             <button class="btn btn-sm btn-default" type="submit"><i class="fa fa-search"></i></button>
+           </div>
+         </div>
+       </div>
+     </div><!-- /.box-header -->
+     </form>
+     <div class="box-body table-responsive no-padding">
+       <table class="table table-hover">
+         <tr>
+           <th>ID</th>
+           <th>消息标题</th>
+           <th>来源</th>
+           <th>发送日期</th>
+           <th>状态</th>
+           <th colspan="2">操作</th>
+         </tr>
+         <foreach name="msgList" item="val" >
+         <tr>
+           <td>{$val.id}</td>
+           <td>{$val.title}</td>
+           <td>{$val.username}</td>
+           <td>{$val.sendtime|date='Y-m-d H:i:s',###}</td>
+           <td><?php echo $msgstatus[$val['is_read']]; ?></td>
+           <td width="60"><button class="btn btn-block btn-info btn-xs" onclick="{location.href='{:U('Message/detail',array('id'=>$val['id']))}'}" type="button">查看</button></td>
+           <td width="60"><button class="btn btn-block btn-danger btn-xs confirm"  rel="{$val.id}" data-toggle="modal" data-target="#confirm" type="button">删除</button></td>
+         </tr>
+     	</foreach>
+       </table>
+     </div><!-- /.box-body -->
+      <div class="box-footer clearfix">
+       <ul class="pagination pagination-sm no-margin pull-right">
+         {$page}
+       </ul>
+     </div>
+   </div><!-- /.box -->
+    </div>
+  </div>
+</section><!-- /.content -->
+</div><!-- /.content-wrapper --> 
+<script>
+$(document).ready(function(){
+	$('.confirm').click(function(){
+		var id = $(this).attr('rel');
+		$('#proj_id').val(id);
+	});
+});
+</script>
+<form action="{:U('Project/delete')}" method="post">
+<div class="modal fade" id="confirm" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title">确认删除</h4>
+      </div>
+      <div class="modal-body">
+      <p>确认删除该项目及相关信息？</p>
+      <input type="hidden" id="proj_id" name="proj_id" value="">
+      </div>
+      <div class="modal-footer">
+        <button data-dismiss="modal" class="btn btn-default pull-left" type="button">关闭</button>
+        <button class="btn btn-primary" type="submit">确认</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</form>

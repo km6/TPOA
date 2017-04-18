@@ -1,0 +1,57 @@
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            {$postion.0.name}
+            <small>ZhongJi</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 管理中心</a></li>
+		    <volist name="postion" id="val">
+		    <li <if condition="$val.id eq $menuid">class="active"</if>><a href="{:U($val['url'])}">{$val.name}</a></li>
+		    </volist>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <!-- left column -->
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+              <!-- general form elements -->
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">入库</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" action="" method="post">
+                  <div class="box-body">
+                    <div class="form-group">
+                      <label>名称</label>
+                      <select class="form-control" name="item_id">
+                        <option value="">请选择</option>
+                        <foreach name="itemlist" item="val">
+                        <option value="{$val.id}">{$val.name}</option>
+                        </foreach>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="stock">数量</label>
+                      <input type="text" class="form-control" name="stock" id="stock" placeholder="请输入入库数量">
+                    </div>
+                  </div><!-- /.box-body -->
+
+                  <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">添加</button>
+                  </div>
+                </form>
+              </div><!-- /.box -->
+            </div>
+            <div class="col-md-2">
+            </div>
+          </div>
+        </section>
+        </div><!-- /.content-wrapper --> 

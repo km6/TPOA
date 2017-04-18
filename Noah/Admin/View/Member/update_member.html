@@ -1,0 +1,128 @@
+<script type="text/javascript" src="__PUBLIC__/plugins/datepicker2/js/bootstrap-datepicker.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/plugins/datepicker2/css/datepicker.css">
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Simple Tables
+            <small>preview of simple tables</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 管理中心</a></li>
+            <li><a href="#">系统管理</a></li>
+            <li class="active">修改会员</li>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <!-- left column -->
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+              <!-- general form elements -->
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">修改会员</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" action="" method="post" enctype="multipart/form-data">
+                  <div class="box-body">
+                    <div class="form-group">
+                      <label for="name">名称</label>
+                      <input type="text" class="form-control" name="membername" id="membername" value="{$memberlist.membername}">
+                    </div>
+                     <div class="form-group">
+                      <label for="name">密码</label>
+                      <input type="text" class="form-control" name="password" id="password" placeholder="****" value="{$member.password}">
+                    </div>
+                    <div class="form-group">
+                      <label for="name">收货人</label>
+                      <input type="text" class="form-control" name="shouhuoname" id="shouhuoname" value="{$memberlist.shouhuoname}">
+                    </div>
+                    <div class="form-group">
+                      <label>短信提示</label>
+                      <select class="form-control" id="is_sms" name="is_sms">
+                        <option value="1" <?php if(1==$memberlist['is_sms']){echo 'selected';}?>>提示</option>
+                        <option value="2" <?php if(2==$memberlist['is_sms']){echo 'selected';}?>>不提示</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="name">电话</label>
+                      <input type="text" class="form-control" name="phone" id="phone" value="{$memberlist.phone}">
+                    </div>
+                    <div class="form-group">
+                      <label for="name">电话2</label>
+                      <input type="text" class="form-control" name="phonetwo" id="phonetwo" value="{$memberlist.phonetwo}">
+                    </div>
+                    <div class="form-group">
+                      <label for="url">地址</label>
+                      <input type="text" class="form-control" name="address" id="address" value="{$memberlist.address}">
+                    </div>
+ 					<div class="form-group">
+                      <label>购卡方式</label>
+                      <select class="form-control" id="diancaitype" name="diancaitype">
+                        <volist name="ct" id="v">
+                            <option value="{$v}"<?php if($memberlist['diancaitype']==$v){echo ' selected';}?>>{$v}</option>
+                        </volist>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="name">注册时间</label>
+                      <input type="text" class="form-control datepicker" name="regtime" id="regtime" value="{$memberlist.regtime}">
+                      <script type="text/javascript">
+                      $('.datepicker').datepicker({format:"yyyy-mm-dd"});
+                      </script>
+                    </div>
+                    <div class="form-group">
+                      <label for="name">配送时间</label>
+                      <input type="text" class="form-control" name="peisongtime" id="peisongtime" value="{$memberlist.peisongtime}">
+                    </div>
+                    <div class="form-group">
+                      <label for="url">配送斤数</label>
+                      <input type="text" class="form-control" name="peisongweight" id="peisongweight" value="{$memberlist.peisongweight}">
+                    </div>
+                    <div class="form-group">
+                      <label>配送车</label>
+                        <select class="form-control"  name="vehicle" id="vehicle">
+                                    <volist name="veh" id="v" key="k">
+                                        <option value="{$k}"<?php if($memberlist['vehicle']==$k){echo ' selected';}?>>{$v}</option>
+                                    </volist>
+                                </select>
+                    </div>
+                    <div class="form-group">
+                      <label>包装方式</label>
+                      <select class="form-control" id="packaging" name="packaging">
+                        <volist name="pg" id="v" key="k">
+                            <option value="{$k}"<?php if($memberlist['packaging']==$k){echo 'selected';}?>>{$v}</option>
+                        </volist>
+                      </select>
+                    </div>
+                        <div class="form-group">
+                      <label for="name">卡号</label>
+                      <input type="text" class="form-control" name="card_num" id="card_num" placeholder="卡号" value="{$memberlist.card_num}">
+                    </div>
+                    <div class="form-group">
+                      <label for="name">配送次数</label>
+                      <input type="text" class="form-control" name="deliverytimes" id="deliverytimes" placeholder="输入配送次数" value="{$memberlist.deliverytimes}">
+                    </div>
+                    <div class="form-group">
+                      <label for="name">储值金额</label>
+                      <input type="text" class="form-control" name="depositmoney" id="depositmoney" placeholder="输入储值金额" value="{$memberlist.depositmoney}">
+                    </div>
+                  </div><!-- /.box-body -->
+
+                  <input type="hidden" name="id" value="{$memberlist.id}">
+                  <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                </form>
+              </div><!-- /.box -->
+            </div>
+            <div class="col-md-2">
+            </div>
+          </div>
+        </section>
+        </div><!-- /.content-wrapper --> 

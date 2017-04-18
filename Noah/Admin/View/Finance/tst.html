@@ -1,0 +1,17 @@
+{__NOLAYOUT__}
+<volist name="menu" id="vo">
+<td style="text-indent:<{$vo['count']*20}>px;"><neq name="vo.count" value="1">| -- </neq><{$vo.name}></td><br>
+</volist>
+
+<?php
+foreach($menu as $k=>$v){
+echo '|--';
+for($i=0;$i<$v['count'];$i++){
+echo '--';
+}
+echo $v['name'].'<br>';
+}
+
+
+print_r($pos);
+?>

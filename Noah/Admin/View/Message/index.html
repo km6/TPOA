@@ -1,0 +1,132 @@
+<script type="text/javascript" src="__PUBLIC__/plugins/datepicker2/js/bootstrap-datepicker.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/plugins/datepicker2/css/datepicker.css">
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            {$postion.0.name}
+            <small>ZhongJi</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 管理中心</a></li>
+		    <volist name="postion" id="val">
+		    <li <if condition="$val.id eq $menuid">class="active"</if>><a href="{:U($val['url'])}">{$val.name}</a></li>
+		    </volist>
+          </ol>
+        </section>
+
+        <form method="POST">
+          <input type="hidden" name="oinfo[userid]" value="{$_GET.uid}">
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-md-12">
+              <!-- Custom Tabs -->
+              <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a data-toggle="tab" href="#tab_1" aria-expanded="true">今日报名截止项目</a></li>
+                  <li class=""><a data-toggle="tab" href="#tab_2" aria-expanded="true">今日抽专家项目</a></li>
+                  <li class=""><a data-toggle="tab" href="#tab_3" aria-expanded="true">今日开标项目</a></li>
+                  <li class=""><a data-toggle="tab" href="#tab_4" aria-expanded="true">未汇编项目</a></li>
+                  <li class=""><a data-toggle="tab" href="#tab_5" aria-expanded="true">未报销项目</a></li>
+                </ul>
+                <div class="tab-content">
+                  <div id="tab_1" class="tab-pane active">
+                    <div class="box-body table-responsive no-padding">
+                      <table class="table">
+                      	<tr>
+	                      	<th>id</th>
+	                      	<th>项目名称</th>
+	                      	<th>项目编号</th>
+                      	</tr>
+                      	<foreach name="clist" item="val">
+                      	<tr>
+	                      	<td>{$val.id}</td>
+	                      	<td>{$val.name}</td>
+	                      	<td>{$val.project_sn}</td>
+	                    </tr>
+	                    </foreach>
+                      </table>
+                    </div>
+                  </div><!-- /.tab-pane -->
+                  <div id="tab_2" class="tab-pane">
+                    <div class="box-body table-responsive no-padding">
+                      <table class="table">
+                      	<tr>
+	                      	<th>id</th>
+	                      	<th>项目名称</th>
+	                      	<th>项目编号</th>
+                      	</tr>
+                      	<foreach name="elist" item="val">
+                      	<tr>
+	                      	<td>{$val.id}</td>
+	                      	<td>{$val.name}</td>
+	                      	<td>{$val.project_sn}</td>
+	                    </tr>
+	                    </foreach>
+                      </table>
+                    </div>
+                  </div><!-- /.tab-pane -->
+                  <div id="tab_3" class="tab-pane">
+                    <div class="box-body table-responsive no-padding">
+                      <table class="table">
+                      	<tr>
+	                      	<th>id</th>
+	                      	<th>项目名称</th>
+	                      	<th>项目编号</th>
+                      	</tr>
+                      	<foreach name="olist" item="val">
+                      	<tr>
+	                      	<td>{$val.id}</td>
+	                      	<td>{$val.name}</td>
+	                      	<td>{$val.project_sn}</td>
+	                    </tr>
+	                    </foreach>
+                      </table>
+                    </div>
+                  </div><!-- /.tab-pane -->
+                  <div id="tab_4" class="tab-pane">
+                    <div class="box-body table-responsive no-padding">
+                      <table class="table">
+                      	<tr>
+	                      	<th>id</th>
+	                      	<th>项目名称</th>
+	                      	<th>项目编号</th>
+                      	</tr>
+                      	<foreach name="complist" item="val">
+                      	<tr>
+	                      	<td>{$val.id}</td>
+	                      	<td>{$val.name}</td>
+	                      	<td>{$val.project_sn}</td>
+	                    </tr>
+	                    </foreach>
+                      </table>
+                    </div>
+                  </div><!-- /.tab-pane -->
+                  <div id="tab_5" class="tab-pane">
+                    <div class="box-body table-responsive no-padding">
+                      <table class="table">
+                      	<tr>
+	                      	<th>id</th>
+	                      	<th>项目名称</th>
+	                      	<th>项目编号</th>
+                      	</tr>
+                      	<foreach name="reimlist" item="val">
+                      	<tr>
+	                      	<td>{$val.id}</td>
+	                      	<td>{$val.name}</td>
+	                      	<td>{$val.project_sn}</td>
+	                    </tr>
+	                    </foreach>
+                      </table>
+                    </div>
+                  </div><!-- /.tab-pane -->
+                </div><!-- /.tab-content -->
+              </div><!-- nav-tabs-custom -->
+            </div><!-- /.col -->
+          </div>
+        </section><!-- /.content -->
+        </form>
+      </div><!-- /.content-wrapper --> 
+      

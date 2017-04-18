@@ -1,0 +1,128 @@
+<script type="text/javascript" src="__PUBLIC__/plugins/datepicker2/js/bootstrap-datepicker.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/plugins/datepicker2/css/datepicker.css">
+<!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            {$postion.0.name}
+            <small>ZhongJi</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 管理中心</a></li>
+		    <volist name="postion" id="val">
+		    <li <if condition="$val.id eq $menuid">class="active"</if>><a href="{:U($val['url'])}">{$val.name}</a></li>
+		    </volist>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <!-- SELECT2 EXAMPLE -->
+          <div class="box box-default">
+            <div class="box-header with-border">
+              <h3 class="box-title">{$info.name}-修改</h3>
+              <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+              </div>
+            </div><!-- /.box-header -->
+            <form method="POST">
+            <input type="hidden" name="id" value="{$_GET.id}">
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>项目名称</label>
+                    <input class="form-control input-sm" type="text" name="name" id="name" value="{$info.name}" placeholder="项目名称" <eq name="groups.0.group_id" value="4">disabled</eq>>
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>项目编号</label>
+                    <input class="form-control input-sm" type="text" name="project_sn" id="project_sn" value="{$info.project_sn}" placeholder="项目编号" <eq name="groups.0.group_id" value="4">disabled</eq>>
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>项目审批人</label>
+                    <select class="form-control" name="approver" <eq name="groups.0.group_id" value="4">disabled</eq>>
+                    <option valaue="">请选择</option>
+                    <foreach name="leaders" item="val">
+                    <option value="{$val.id}" <php>if($info['approver'] == $val['id']){echo 'selected';}</php>>{$val.username}</option>
+                    </foreach>
+                    </select>
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+              <div class="row">
+              	<div class="col-md-3">
+                  <div class="form-group">
+                    <label>公示日期</label>
+                    <input class="form-control input-sm" type="text" name="publicity_date" id="publicity_date" value="{$info.publicity_date|date='Y-m-d',###}" placeholder="公示日期" <eq name="groups.0.group_id" value="4">disabled</eq>>
+                    <script>$('#publicity_date').datepicker({format:"yyyy-mm-dd"});</script>
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>报名截止日期</label>
+                    <input class="form-control input-sm" type="text" name="closing_date" id="closing_date" value="{$info.closing_date|date='Y-m-d',###}" placeholder="报名截止日期" <eq name="groups.0.group_id" value="4">disabled</eq>>
+                    <script>$('#closing_date').datepicker({format:"yyyy-mm-dd"});</script>
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>抽专家日期</label>
+                    <input class="form-control input-sm" type="text" name="extract_date" id="extract_date" value="{$info.extract_date|date='Y-m-d',###}" placeholder="抽专家日期" <eq name="groups.0.group_id" value="4">disabled</eq>>
+                    <script>$('#extract_date').datepicker({format:"yyyy-mm-dd"});</script>
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>开标日期</label>
+                    <input class="form-control input-sm" type="text" name="opening_date" id="opening_date" value="{$info.opening_date|date='Y-m-d',###}" placeholder="开标日期" <eq name="groups.0.group_id" value="4">disabled</eq>>
+                    <script>$('#opening_date').datepicker({format:"yyyy-mm-dd"});</script>
+                  </div><!-- /.form-group -->
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+              <div class="box-footer">
+              <div class="row">
+	              <div class="col-md-11"><button class="btn btn-primary btn-danger" type="button" data-toggle="modal" data-target="#transfer">项目移交</button></div>
+	              <div class="col-md-1"><button class="btn btn-primary" type="submit">保存</button></div>
+              </div>
+              </div>
+            </div><!-- /.box-body -->
+          </form>
+          </div><!-- /.box -->
+          <form action="{:U('Project/transfer')}" method="post">
+            <div class="modal fade" id="transfer" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">项目移交</h4>
+                  </div>
+                  <div class="modal-body">
+                  <div class="row">
+                  <div class="col-md-2">选择移交人</div>
+                  <div class="col-md-4">
+                  <input type="hidden" name="proj_id" value="{$_GET.id}">
+                  	<select class="form-control" name="uid">
+                        <option value="">请选择</option>
+                        <foreach name="users" item="val">
+                        <option value="{$val.id}">{$val.username}</option>
+                        </foreach>
+                     </select>
+                  </div>
+                  </div>  
+                  </div>
+                  <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default pull-left" type="button">关闭</button>
+                    <button class="btn btn-primary" type="submit">保存</button>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+          </form>
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
